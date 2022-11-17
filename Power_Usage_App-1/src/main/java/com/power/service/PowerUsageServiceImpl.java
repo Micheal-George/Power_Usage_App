@@ -95,7 +95,7 @@ public class PowerUsageServiceImpl implements PowerUsageService{
 		if(list.size()>0)
 		{
 			int i= (int) ChronoUnit.DAYS.between(us.getFromTime(),us.getToTime());
-			int total=0;
+			double total=0;
 			for(PowerUsage l:list)
 			{
 				total+=l.getUnitConsumed();

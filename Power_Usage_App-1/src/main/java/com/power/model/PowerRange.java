@@ -6,7 +6,7 @@ import lombok.Data;
 public class PowerRange {
 	
 	int day;
-	int unitconsumed;
+	double unitconsumed;
 	
 
 }
