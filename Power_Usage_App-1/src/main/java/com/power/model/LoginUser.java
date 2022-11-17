@@ -17,25 +17,11 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class User {
-
+public class LoginUser {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
-	
-	
-	@NotNull(message = "Display Name is mandatory")
-	private String display_name;
-	
-	
-	@NotNull(message = "User Name is mandatory")
-	@Column(unique = true)
-	private String username ;
-	
-	@Email(message="Enter your Email ID properly")
-	@Column(unique = true)
-	@NotNull(message = "Email ID is mandatory")
-	private String emailId;
 	
 	@Size(max = 10,min = 10)
 	@Column(unique = true)
@@ -45,6 +31,4 @@ public class User {
 	@NotNull(message = "Password is mandatory")
 	private String password;
 
-	
-	
 }
