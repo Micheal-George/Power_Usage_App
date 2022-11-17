@@ -25,16 +25,19 @@ public class UserSession {
 	@Column(unique =true)
 	private Integer userId;
 	
+	String username;
+	
 	private String uuid;
 	
 	private LocalDateTime localDateTime;
 
 	
-	public UserSession(Integer userId, String uuid, LocalDateTime localDateTime) {
+	public UserSession(Integer userId, String username,String uuid, LocalDateTime localDateTime) {
 		super();
 		this.userId = userId;
 		this.uuid = uuid;
 		this.localDateTime = localDateTime;
+		this.username=username;
 	}
 
 }

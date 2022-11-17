@@ -1,6 +1,7 @@
 package com.power.service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +19,10 @@ import net.bytebuddy.utility.RandomString;
 public class UserSessionServiceImpl implements UserSessionService{
 	
 	@Autowired
-	UserDao udao;
+	private UserDao udao;
 	
 	@Autowired
-	UserSessionDao usessiondao;
+	private UserSessionDao usessiondao;
 
 	@Override
 	public String logIntoAccount(LoginUser user) throws Exception {
@@ -41,7 +42,7 @@ public class UserSessionServiceImpl implements UserSessionService{
 				if(user.getPassword().equals(opt.get().getPassword())) {
 					
 					String key = RandomString.make(6);
-					UserSession currentUserSession = new UserSession(userId, key, LocalDateTime.now());
+					UserSession currentUserSession = new UserSession(userId,opt.get().getUsername(), key, LocalDateTime.now());
 					
 					usessiondao.save(currentUserSession);
 			     return currentUserSession.toString();
@@ -62,6 +63,12 @@ Optional<UserSession> currUserOpt=usessiondao.findByUuid(key);
 			return "User logged out successfully.";
 		}
 		return "User does not exist, Enter correct uuid";
+	}
+
+	@Override
+	public List<UserSession> getAllCurrentUsers() {
+		List<UserSession> users=usessiondao.findAll();
+		return users;
 	}
 
 
