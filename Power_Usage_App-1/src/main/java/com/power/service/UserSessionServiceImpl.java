@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.power.exception.LoginException;
 import com.power.model.LoginUser;
 import com.power.model.User;
 import com.power.model.UserSession;
@@ -25,8 +26,8 @@ public class UserSessionServiceImpl implements UserSessionService{
 	private UserSessionDao usessiondao;
 
 	@Override
-	public String logIntoAccount(LoginUser user) throws Exception {
-	
+	public String logIntoAccount(LoginUser user) throws LoginException {
+	         
 		
 			Optional<User> opt=udao.findByMobileNumber(user.getMobileNumber());
 			  if(!opt.isPresent())
@@ -45,6 +46,7 @@ public class UserSessionServiceImpl implements UserSessionService{
 					UserSession currentUserSession = new UserSession(userId,opt.get().getUsername(), key, LocalDateTime.now());
 					
 					usessiondao.save(currentUserSession);
+					
 			     return currentUserSession.toString();
 			  
 		        }
@@ -55,19 +57,22 @@ public class UserSessionServiceImpl implements UserSessionService{
 	}
 
 	@Override
-	public String logOutAccount(String key) {
+	public String logOutAccount(String key) throws LoginException{
 Optional<UserSession> currUserOpt=usessiondao.findByUuid(key);
 		
 		if(currUserOpt.isPresent()) {
 			usessiondao.delete(currUserOpt.get());
 			return "User logged out successfully.";
 		}
-		return "User does not exist, Enter correct uuid";
+		throw new LoginException("User does not exist, Enter correct uuid");
 	}
 
 	@Override
-	public List<UserSession> getAllCurrentUsers() {
+	public List<UserSession> getAllCurrentUsers() throws LoginException {
 		List<UserSession> users=usessiondao.findAll();
+		if(users.isEmpty())
+			throw new LoginException("No data");
+		
 		return users;
 	}
 

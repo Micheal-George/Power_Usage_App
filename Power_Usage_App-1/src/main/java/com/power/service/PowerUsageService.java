@@ -12,7 +12,7 @@ public interface PowerUsageService {
 	
 	public PowerUsage addPowerUsage(PowerIn power,String key);
 	
-	public List<PowerUsage> getList(UsageDate us,String key);
+	public List<PowerUsage> getList(UsageDate us,String key) ;
 	
 	public PowerRange getPowerRange(UsageDate us,String key);
 

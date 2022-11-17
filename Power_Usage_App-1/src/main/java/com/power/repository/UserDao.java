@@ -12,6 +12,7 @@ import com.power.model.UserSession;
 
 public interface UserDao extends JpaRepository<User, Integer>{
 
+	//to get user using mobile number
 	Optional<User> findByMobileNumber( String mobileNumber);
 
 	
