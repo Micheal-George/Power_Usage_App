@@ -1,6 +1,8 @@
 # Power_Usage_App
 cognitive cloud assignment
 
+ swagger : http://localhost:8080/swagger-ui/#/
+
 user flow
 
 add user
